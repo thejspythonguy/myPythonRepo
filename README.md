@@ -28,3 +28,6 @@
 
 ---
 <p align="center"><i>Always learning. Always building. Do It Right First Time.</i></p>
+
+<p align="center"><i>Code Neve Lie Developer May Lie!</i></p>
+

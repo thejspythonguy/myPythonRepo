@@ -1,0 +1,44 @@
+<main style="max-width: 500px; margin: 2rem auto; font-family: sans-serif;">
+  <h2>DIRFT Todo Application</h2>
+
+  <form (submit)="$event.preventDefault(); onCreateTodo()">
+    <input 
+      type="text" 
+      [ngModel]="newTodoTitle()" 
+      (ngModelChange)="newTodoTitle.set($event)"
+      name="todoTitle"
+      placeholder="What needs to be done?" 
+      style="width: 70%; padding: 0.5rem;"
+    />
+    <button type="submit" style="width: 25%; padding: 0.5rem; margin-left: 4%;">Add</button>
+  </form>
+
+  <hr />
+
+  <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+    <span><strong>Pending:</strong> {{ todoService.uncompletedCount() }}</span>
+    <span><strong>Completed:</strong> {{ todoService.completedCount() }}</span>
+  </div>
+
+  <ul style="list-style: none; padding: 0;">
+    @for (todo of todoService.todos(); track todo.id) {
+      <li style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; padding: 0.5rem; border: 1px solid #eee;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <input 
+            type="checkbox" 
+            [checked]="todo.completed" 
+            (change)="todoService.toggleTodo(todo)"
+          />
+          <span [style.text-decoration]="todo.completed ? 'line-through' : 'none'">
+            {{ todo.title }}
+          </span>
+        </div>
+        <button (click)="todoService.deleteTodo(todo.id)" style="color: red; border: none; background: transparent; cursor: pointer;">
+          Delete
+        </button>
+      </li>
+    } @empty {
+      <p style="text-align: center; color: #666;">No tasks left! Enjoy your day.</p>
+    }
+  </ul>
+</main>
